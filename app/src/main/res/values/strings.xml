@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">PaymentForPayphone</string>
+    <string name="btnPagar">Pagar</string>
+    <string name="cancelar">Cancelar</string>
+</resources>
