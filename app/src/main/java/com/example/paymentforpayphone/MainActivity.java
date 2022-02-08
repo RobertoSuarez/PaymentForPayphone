@@ -133,8 +133,12 @@ public class MainActivity extends AppCompatActivity {
         Sale infoPago = new Sale();
         infoPago.setCountryCode(codigoSelecionado);
         infoPago.setPhoneNumber(inputNumeroCelular.getText().toString());
-        infoPago.setAmount(100);
-        infoPago.setAmountWithoutTax(100);
+        float monto = Float.parseFloat(inputMonto.getText().toString());
+        monto = monto * 100;
+        int montoint = (int)monto;
+        System.out.println(montoint);
+        infoPago.setAmount(montoint);
+        infoPago.setAmountWithoutTax(montoint);
         infoPago.setReference(inputReferencia.getText().toString());
         infoPago.setCurrency("USD");
         infoPago.setClientTransactionId(UUID.randomUUID().toString());
@@ -158,7 +162,11 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(JSONObject response) {
                         try {
                             System.out.println("transactionId: " + response.getInt("transactionId"));
-                            Toast.makeText(getApplicationContext(), "transactionId: " + response.getInt("transactionId"), Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Solicitud de pago enviada: " + response.getInt("transactionId"), Toast.LENGTH_LONG).show();
+                            // Limpiamos los datos
+                            inputNumeroCelular.setText("");
+                            inputMonto.setText("");
+                            inputReferencia.setText("");
                         } catch (JSONException e) {
                             System.out.println(e.toString());
                         }
