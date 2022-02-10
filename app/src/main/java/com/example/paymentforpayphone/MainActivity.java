@@ -1,6 +1,9 @@
 package com.example.paymentforpayphone;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
@@ -35,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
     public RequestQueue colaRequest;
     private final String TOKEN = "kLNZZBXH_EUd7i7iMqpb62fNcP1-0frAyGI9iQmN_uBaTaOfnuN_c3bQS23bN5YhLy0JKrd36GSLCpV-lMyVunSGx78Xrb6i5YvC7M-ZxRz452t_elOG1ay1A5KObGn--HxQYYf8s8-2E8KKpm2Njghdc0xWp_cHm_-EXikJkU2GGaCXobDe7L14QkaGmG_jrppc_xqp4eDth8a8gi7hsp8XDi2VXlGClHdLtDHYyKCndojvF_qptwipn_VcYaZbfFmJKqFd6Cei9IpST9LSJGyDQ660m_FNtp8Vt7-0SecNzywUfS2xE4n2sFIozzvb0a3rGQ";
 
+    List<HistorialPagoItem> pagosItems;
+
     List<String> elementos = new ArrayList<String>();
 
     AutoCompleteTextView itemListCode;
@@ -49,6 +54,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Historial de pagos
+        pagosItems = new ArrayList<>();
+        pagosItems.add(new HistorialPagoItem("Pago #1", "Se realizo a 00023923", "32234234"));
+        pagosItems.add(new HistorialPagoItem("Pago #1", "Se realizo a 00023923", "32234234"));
+        pagosItems.add(new HistorialPagoItem("Pago #1", "Se realizo a 00023923", "32234234"));
+        HistorialAdapter historialAdapter = new HistorialAdapter(pagosItems, this);
+        RecyclerView recyclerView = findViewById(R.id.historial_pagos);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(historialAdapter);
+
 
         colaRequest = Volley.newRequestQueue(this);
         colaRequest.start();
